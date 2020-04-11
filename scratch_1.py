@@ -2,20 +2,20 @@ import pandas as pd
 
 df = pd.read_csv('/Users/kitaeklee/PycharmProjects/DataVis_Police/Police_Department_Incidents_-_Previous_Year__2016_.csv')
 
-df = df.loc[:, ['PdDistrict', 'Resolution']]
+df = df.loc[:, ['PdDistrict', 'Category']]
 
-# Get the names of indexes for the column 'Resolution' with the value 'NONE'
-index_names = df[df['Resolution'] == 'NONE'].index
+# Get the names of indexes for the column 'Category' with the value 'NON-CRIMINAL'
+index_names = df[df['Category'] == 'NON-CRIMINAL'].index
 # Drop those rows
 df.drop(index_names, inplace=True)
 df.reset_index()
 
 # Create new dataframe grouped by the District and allocate number of crimes occurred
-df_new = df.groupby(by='PdDistrict').count()
+df_new = df.groupby('PdDistrict').count()
 df_new = df_new.reset_index()
-df_new = df_new.rename(columns={'PdDistrict':'Neighborhood', 'Resolution':'Count'})
+df_new = df_new.rename(columns={'PdDistrict':'Neighborhood', 'Category':'Count'})
 
-
+print(df_new)
 
 import folium
 
